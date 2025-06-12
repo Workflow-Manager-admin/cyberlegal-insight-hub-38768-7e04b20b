@@ -235,3 +235,77 @@ body {
 .quiz-nav-btns .btn-large {
   min-width: 90px;
 }
+
+/* --- ContractUploadStep styles --- */
+.contract-upload-card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  padding: 34px 28px 30px 28px;
+  margin: 0 auto 13px;
+  max-width: 470px;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: stretch;
+  border: 1.5px solid #e1e9fb;
+}
+
+.contract-upload-title {
+  color: #1b2361;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 10px;
+}
+
+.contract-upload-desc {
+  color: #2f426a;
+  font-size: 1.09rem;
+  line-height: 1.44;
+  margin-bottom: 2px;
+}
+
+.contract-upload-card .btn {
+  margin-bottom: 0;
+}
+
+.contract-textarea {
+  box-shadow: 0 1px 5px 0 rgba(80,167,215,0.04);
+  background: #f8fafc;
+  color: #1a236b;
+  border-radius: 5px;
+  border: 1.3px solid #e3eeff;
+  outline: none;
+  transition: border 0.18s;
+}
+
+.contract-textarea:focus {
+  border-color: #2bc8ea;
+  box-shadow: 0 1px 8px #e7f4fd;
+}
+
+.contract-upload-actions {
+  margin-top: 5px;
+}
+
+.contract-upload-note {
+  color: #7fa1c7;
+  font-size: 0.97rem;
+  margin-top: 4px;
+}
+
+.contract-upload-privacycopy {
+  color: #2cdaaf;
+  font-size: 0.96rem;
+  margin-top: 16px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.privacy-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}

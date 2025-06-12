@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import WelcomeStep from './WelcomeStep';
 import CyberQuizStep from './CyberQuizStep';
+import ContractUploadStep from './ContractUploadStep';
 // PUBLIC_INTERFACE
 function MainContainer() {
   /**
@@ -53,45 +54,19 @@ function MainContainer() {
         );
 
       case 2:
-        // Contract Upload/Analysis placeholder
+        // Contract Upload/Analysis step - modular, with paste and upload
         return (
-          <div className="container" style={{ paddingTop: 80, maxWidth: 540 }}>
-            <h2 className="title" style={{ fontSize: '2rem', marginBottom: 10 }}>Analyze a Contract or Legal Text</h2>
-            <div className="description" style={{ marginBottom: 10 }}>
-              Paste or upload your contract for instant, local AI-powered analysis. <br />
-              <span style={{ color: '#56e2ff', fontSize: '0.97rem' }}>
-                Your data is secure—nothing leaves your browser.
-              </span>
-            </div>
-            <textarea
-              rows={7}
-              className="container"
-              style={{
-                width: '100%',
-                resize: 'vertical',
-                fontFamily: 'inherit',
-                padding: 12,
-                fontSize: '1rem',
-                marginBottom: 16,
-                borderRadius: 4,
-                border: '1px solid #eee',
-              }}
-              placeholder="Paste your contract or legal agreement text here..."
-              value={contractText}
-              onChange={e => setContractText(e.target.value)}
-            />
-            {/* No file upload for MVP per instruction, just paste for now */}
-            <button className="btn" onClick={goToPrev} style={{ marginRight: 8 }}>Back</button>
-            <button
-              className="btn btn-large"
-              disabled={!contractText.trim()}
-              onClick={() => {
-                // Future: perform local AI analysis here
-                setAnalysisResult({ risk: 'Medium', summary: 'Example: Arbitration clause present.' });
-                goToNext();
-              }}
-            >Analyze</button>
-          </div>
+          <ContractUploadStep
+            value={contractText}
+            onChange={setContractText}
+            uploading={false}
+            onBack={goToPrev}
+            onAnalyze={() => {
+              // Future: perform local AI analysis here, dummy result for now
+              setAnalysisResult({ risk: 'Medium', summary: 'Example: Arbitration clause present.' });
+              goToNext();
+            }}
+          />
         );
 
       case 3:

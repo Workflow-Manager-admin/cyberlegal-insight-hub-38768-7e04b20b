@@ -4,6 +4,12 @@
   --text-color: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --border-color: rgba(255, 255, 255, 0.1);
+
+  --card-bg: #fff;
+  --card-radius: 18px;
+  --kavia-blue: #2563eb;
+  --kavia-accent: #fbbf24;
+  --card-shadow: 0 6px 30px 0 rgba(60,100,160,0.14), 0 1.5px 6px rgba(60,90,160,0.08);
 }
 
 body {
@@ -105,4 +111,56 @@ body {
 .btn-large {
   padding: 12px 24px;
   font-size: 1.1rem;
+}
+
+/* --- WelcomeStep styles --- */
+.welcome-card-container {
+  background: linear-gradient(135deg, #e4f3ff 0%, #f7fafc 100%);
+}
+
+.welcome-card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.22s;
+}
+
+.welcome-card .logo {
+  color: var(--kavia-blue);
+}
+
+.welcome-illustration svg {
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0px 2.5px 8px rgba(70,172,250,0.11));
+}
+
+.welcome-card .title {
+  color: #1b2361;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 7px;
+}
+
+.welcome-card .description {
+  color: #3b465a;
+  font-size: 1.09rem;
+}
+
+.welcome-card .btn {
+  background: linear-gradient(90deg, #2563eb 10%, #fbbf24 110%);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 5px;
+  letter-spacing: .03em;
+}
+
+.welcome-card .btn:hover {
+  background: linear-gradient(90deg, #1c3aad 10%, #fbbf24 120%);
+}
+
+.logo-symbol {
+  color: var(--kavia-blue);
+  font-size: 1.5rem;
+  font-family: monospace;
 }

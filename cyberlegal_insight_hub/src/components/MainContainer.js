@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import WelcomeStep from './WelcomeStep';
 
 // PUBLIC_INTERFACE
 function MainContainer() {
@@ -32,23 +33,11 @@ function MainContainer() {
   const goToNext = () => setStep((s) => Math.min(s + 1, steps.length - 1));
   const goToPrev = () => setStep((s) => Math.max(s - 1, 0));
 
-  // Dummy placeholders for interaction - replace with actual subcomponents later
-  
   function renderStep() {
     switch (step) {
       case 0:
-        return (
-          <div className="hero" style={{ textAlign: 'center', padding: '64px 0' }}>
-            <div className="subtitle">Welcome to the CyberLegal Insight Hub</div>
-            <h1 className="title" style={{ fontSize: '2.5rem' }}>Unified Digital & Legal Risk Assessment</h1>
-            <div className="description" style={{ marginBottom: 32 }}>
-              Instantly evaluate your cyber hygiene and gain clarity on your contract/legal risks—powered securely by Kavia AI.
-              <br />
-              Start your journey towards digital and legal confidence.
-            </div>
-            <button className="btn btn-large" onClick={goToNext}>Get Started</button>
-          </div>
-        );
+        // Use branded WelcomeStep component
+        return <WelcomeStep onGetStarted={goToNext} />;
 
       case 1:
         // Cyber Hygiene Quiz placeholder

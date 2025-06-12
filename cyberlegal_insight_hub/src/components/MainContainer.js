@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import WelcomeStep from './WelcomeStep';
-
+import CyberQuizStep from './CyberQuizStep';
 // PUBLIC_INTERFACE
 function MainContainer() {
   /**
@@ -40,43 +40,16 @@ function MainContainer() {
         return <WelcomeStep onGetStarted={goToNext} />;
 
       case 1:
-        // Cyber Hygiene Quiz placeholder
+        // CyberQuizStep: interactive quiz UI with scoring and progress
         return (
-          <div className="container" style={{ paddingTop: 80, maxWidth: 540 }}>
-            <h2 className="title" style={{ fontSize: '2rem', marginBottom: 10 }}>Cyber Hygiene Checklist</h2>
-            <div className="description" style={{ marginBottom: 18 }}>
-              Answer a few questions to assess your digital safety habits.
-            </div>
-            <ul style={{ listStyle: 'none', padding: 0, marginBottom: 24 }}>
-              {/* Example questions, real questions will replace this */}
-              <li style={{ marginBottom: 12 }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={quizAnswers.q1 || false}
-                    onChange={e =>
-                      setQuizAnswers(a => ({ ...a, q1: e.target.checked }))
-                    }
-                  />{' '}
-                  I use strong, unique passwords for my online accounts.
-                </label>
-              </li>
-              <li style={{ marginBottom: 12 }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={quizAnswers.q2 || false}
-                    onChange={e =>
-                      setQuizAnswers(a => ({ ...a, q2: e.target.checked }))
-                    }
-                  />{' '}
-                  I am aware of phishing emails and how to spot them.
-                </label>
-              </li>
-            </ul>
-            <button className="btn" onClick={goToPrev} style={{ marginRight: 8 }}>Back</button>
-            <button className="btn btn-large" onClick={goToNext}>Continue</button>
-          </div>
+          <CyberQuizStep
+            onBack={goToPrev}
+            initialAnswers={quizAnswers}
+            onComplete={({ score, answers }) => {
+              setQuizAnswers(answers); // persist for results
+              goToNext();
+            }}
+          />
         );
 
       case 2:
@@ -122,7 +95,24 @@ function MainContainer() {
         );
 
       case 3:
-        // Results Dashboard placeholder
+        // Results Dashboard placeholder (with quiz scoring)
+        // Determine Cyber Hygiene message based on quiz score
+        const totalQuizQs = 4;
+        const quizScore = Object.values(quizAnswers || {}).length > 0
+          ? Object.values(quizAnswers).filter((v,i) => {
+              // Score logic matches CyberQuizStep correct answers
+              const corrects = ['b','b','b','a'];
+              return v === corrects[i];
+            }).length
+          : 0;
+        const hygieneMsg = quizScore === totalQuizQs
+          ? "Excellent"
+          : quizScore >= 3
+          ? "Good"
+          : quizScore > 0
+          ? "Needs Improvement"
+          : "Not attempted";
+
         return (
           <div className="container" style={{ paddingTop: 80, maxWidth: 680 }}>
             <h2 className="title" style={{ fontSize: '2rem', marginBottom: 10 }}>Your Risk Assessment Results</h2>
@@ -136,7 +126,7 @@ function MainContainer() {
               marginBottom: 18,
               border: '1px solid var(--border-color)'
             }}>
-              <div><b>Cyber Hygiene:</b> {quizAnswers.q1 || quizAnswers.q2 ? 'Good' : 'Needs improvement'}</div>
+              <div><b>Cyber Hygiene:</b> {hygieneMsg} <span style={{color:'#ffc66c',fontWeight:500,fontSize:'1rem'}}>({quizScore}/{totalQuizQs})</span></div>
               <div><b>Contract Risk:</b> {analysisResult ? analysisResult.risk : 'N/A'}</div>
               <div style={{ marginTop: 9 }}>
                 <b>Summary:</b>

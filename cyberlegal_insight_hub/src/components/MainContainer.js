@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import WelcomeStep from './WelcomeStep';
 import CyberQuizStep from './CyberQuizStep';
 import ContractUploadStep from './ContractUploadStep';
+import ResultsDashboard from './ResultsDashboard';
 import {
   analyzeCyberQuiz,
   analyzeContract,
@@ -80,79 +81,19 @@ function MainContainer() {
         );
 
       case 3:
-        // Unified Results Dashboard with mock "AI" logic
+        // ResultsDashboard (modular UI, unified, tabbed)
         const cyber = quizAnalysis || analyzeCyberQuiz(quizAnswers);
         const contract = contractAnalysis || analyzeContract(contractText);
 
         return (
-          <div className="container" style={{ paddingTop: 80, maxWidth: 700 }}>
-            <h2 className="title" style={{ fontSize: '2rem', marginBottom: 10 }}>Your Risk Assessment Results</h2>
-            <div className="description" style={{ marginBottom: 14 }}>
-              Here’s your unified digital & contractual risk profile:
-            </div>
-            <div style={{
-              background: 'rgba(27,27,40,0.8)',
-              borderRadius: 8,
-              padding: 24,
-              marginBottom: 18,
-              border: '1px solid var(--border-color)'
-            }}>
-              <div>
-                <b>Cyber Hygiene:</b>
-                {" "}
-                <span style={{ color: cyber.tier === "Low" ? "#9ee56c" : (cyber.tier === "Medium" ? "#ffcc80" : "#ff6d6d"), fontWeight: 500 }}>
-                  {cyber.tier}
-                </span>
-                <span style={{
-                  color: '#ffc66c', fontWeight: 500, fontSize: '1rem', marginLeft: 7
-                }}>
-                  ({cyber.score}/{cyber.total})
-                </span>
-              </div>
-              {cyber.message && (
-                <div style={{ color: "#25d4c6", marginTop: 3 }}>{cyber.message}</div>
-              )}
-              {cyber.redFlags && cyber.redFlags.length > 0 && (
-                <div style={{ margin: "8px 0 0 0", color: "#fc908d" }}>
-                  &#9888; Behavioral Red Flags: {cyber.redFlags.join(", ")}
-                </div>
-              )}
-              <div style={{ marginTop: 15 }}>
-                <b>Contract Risk:</b>
-                {" "}
-                <span style={{ color: contract.tier === "Low" ? "#9ee56c" : (contract.tier === "Medium" ? "#ffcc80" : contract.tier === "High" ? "#ff6d6d" : "#aaa"), fontWeight: 500 }}>
-                  {contract.tier}
-                </span>
-                <span style={{ color: "#ffc66c", fontWeight: 500, fontSize: "1rem", marginLeft: 7 }}>{contract.risk}</span>
-              </div>
-              {contract.redFlags && contract.redFlags.length > 0 && (
-                <div style={{ margin: "8px 0 0 0", color: "#fc908d" }}>
-                  &#9888; Contract Red Flags: {contract.redFlags.join(", ")}
-                </div>
-              )}
-              <div style={{ marginTop: 11 }}>
-                <b>Summary:</b>
-                <div style={{ color: '#8cf9cc', fontSize: '1rem' }}>
-                  {contract.summary}
-                </div>
-              </div>
-            </div>
-            <div>
-              <b>Personalized Recommendations</b>
-              <ul>
-                {/* Sample, can use actual analysis for finer logic */}
-                {cyber.tier === "High" && <li>Strengthen digital behavior: use strong, unique passwords and enable 2FA everywhere.</li>}
-                {cyber.redFlags && cyber.redFlags.includes("Phishing risk behavior") && <li>Be extra cautious of suspicious emails and links.</li>}
-                {contract.tier === "High" && <li>Re-negotiate or seek legal advice on indemnification, perpetual, or breach clauses.</li>}
-                {contract.redFlags && contract.redFlags.includes("Exclusive Clause") && <li>Assess exclusivity risks in your contract; consider negotiation.</li>}
-                <li>Change passwords regularly and avoid reuse.</li>
-                <li>Be cautious of email links and attachments.</li>
-                <li>Review arbitration, termination, and exclusivity clauses in contracts.</li>
-              </ul>
-            </div>
-            <button className="btn" onClick={goToPrev} style={{ marginRight: 8 }}>Back</button>
-            <button className="btn btn-large" onClick={goToNext}>View Action Plan</button>
-          </div>
+          <React.Fragment>
+            <ResultsDashboard
+              cyber={cyber}
+              contract={contract}
+              onBack={goToPrev}
+              onNext={goToNext}
+            />
+          </React.Fragment>
         );
 
       case 4:

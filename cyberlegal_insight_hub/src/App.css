@@ -309,3 +309,163 @@ body {
   align-items: center;
   gap: 3px;
 }
+
+/* --- ResultsDashboard styles --- */
+.results-dashboard {
+  animation: fadein-dash 0.9s cubic-bezier(.63, .32, .21, 1);
+}
+
+@keyframes fadein-dash {
+  from { opacity: 0; transform: translateY(22px);}
+  to { opacity: 1; transform: none; }
+}
+
+.dashboard-summary-bar {
+  background: linear-gradient(90deg, #223042 70%, #ffe599 100%);
+  border-radius: 14px;
+  margin-bottom: 0;
+  box-shadow: 0 1.5px 7px rgba(56,162,212,0.023);
+  border: 1.5px solid #2230422d;
+}
+
+.score-donut {
+  background: conic-gradient(#4fcf8b 0% 33%, #ffcc80 33% 66%, #ff6d6d 66% 100%);
+  border: 2.4px solid #eaf5fd;
+  box-shadow: 0 2.5px 11px #192e3d18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dashboard Tabs */
+.dashboard-tabs {
+  margin-top: 32px;
+  display: flex;
+  gap: 2px;
+  border-bottom: 2.4px solid #213050;
+}
+.dashboard-tab-btn {
+  background: #1a1a23;
+  color: #95e9f9;
+  border: none;
+  border-radius: 5px 5px 0 0;
+  font-size: 1.09rem;
+  font-weight: 500;
+  padding: 8.5px 28px 10px 28px;
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: background 0.22s, color 0.17s, box-shadow 0.21s;
+}
+.dashboard-tab-btn.selected,
+.dashboard-tab-btn[aria-selected="true"] {
+  background: linear-gradient(90deg, #2563eb 30%, #fbbf24 100%);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 3px 16px #0058;
+  z-index: 2;
+}
+
+/* Tabpanel area */
+.dashboard-tabpanel {
+  background: #1a1e2d;
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 6px 24px 0 rgba(60,90,140,0.10);
+  padding: 30px 22px 26px 22px;
+  margin-bottom: 26px;
+  min-height: 160px;
+}
+
+.dashboard-tabpanel ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+/* Action Checklist */
+.dashboard-tabpanel ul li {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  color: #3afcc9;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dashboard-tabpanel ul li input[type="checkbox"] {
+  accent-color: #37c8e8;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+}
+.dashboard-tabpanel ul li label {
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.16s, opacity 0.16s;
+  text-decoration: none;
+  opacity: 1;
+}
+.dashboard-tabpanel ul li input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: #a3ffc9;
+  opacity: 0.63;
+}
+
+/* Gold checklist for contract/legal actions */
+.dashboard-tabpanel ul li[style*="color: rgb(251, 191, 36)"] {
+  color: #fbbf24;
+}
+.dashboard-tabpanel ul li[style*="color: #fbbf24"] label {
+  color: #ffe299;
+}
+
+/* Modal overlay */
+.dashboard-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10,28,36,0.77);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard-modal {
+  background: #1a1e2d;
+  border-radius: 12px;
+  padding: 34px 32px 24px 32px;
+  min-width: 310px;
+  box-shadow: 0 4px 40px 0 #1766c866;
+  max-width: 460px;
+  color: #fc908d;
+  animation: appear-modal 0.22s cubic-bezier(.33,.79,.32,1);
+}
+@keyframes appear-modal {
+  from { opacity: 0; transform: scale(0.88);}
+  to { opacity: 1; transform: none;}
+}
+
+/* Button overrides for dashboard */
+.results-dashboard .btn,
+.dashboard-modal .btn {
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  min-width: 100px;
+  box-shadow: 0px 2px 10px 0 rgba(80,80,100,.09);
+  margin-top: 0;
+}
+
+.results-dashboard .btn-large,
+.dashboard-modal .btn-large {
+  font-size: 1.11rem;
+  padding: 12px 30px;
+}
+
+.results-dashboard .btn:active,
+.dashboard-modal .btn:active {
+  transform: scale(0.97);
+}
+
+.results-dashboard .btn-large:active {
+  transform: scale(0.98);
+}

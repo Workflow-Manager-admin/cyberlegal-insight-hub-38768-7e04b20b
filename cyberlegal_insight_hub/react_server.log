@@ -7,32 +7,51 @@
 <i> [webpack-dev-server] On Your Network (IPv4): http://172.17.0.2:3000/
 <i> [webpack-dev-server] Content not from webpack is served from './public' directory
 Injecting EditorRootWrapper import: ../.ve/EditorRootWrapper
-asset bundle.js 1.44 MiB [emitted] (name: main)
+asset bundle.js 1.45 MiB [emitted] (name: main)
 asset index.html 1.92 KiB [emitted]
 runtime modules 27.5 KiB 14 modules
-modules by path ./node_modules/ 1.24 MiB 31 modules
-modules by path ./src/ 47.1 KiB
-  modules by path ./src/components/*.js 33.6 KiB 5 modules
-  modules by path ./src/*.css 11.4 KiB 4 modules
-  modules by path ./src/*.js 2.16 KiB
-    ./src/index.js 530 bytes [built] [code generated]
-    ./src/App.js 1.64 KiB [built] [code generated]
-modules by path ./.ve/ 15.1 KiB
-  modules by path ./.ve/*.js 10.6 KiB 2 modules
-  modules by path ./.ve/*.css 2.93 KiB
-    ./.ve/EditorOverlay.css 2.25 KiB [built] [code generated]
-    ./node_modules/css-loader/dist/cjs.js!./.ve/EditorOverlay.css 697 bytes [built] [code generated]
-  ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1583 ms
+cacheable modules 1.31 MiB
+  modules by path ./node_modules/ 1.24 MiB 31 modules
+  modules by path ./src/ 54 KiB
+    modules by path ./src/components/*.js 36.3 KiB 5 modules
+    modules by path ./src/*.css 11.4 KiB 4 modules
+    modules by path ./src/*.js 2.16 KiB 2 modules
+    ./src/utils/riskAnalysis.js 4.15 KiB [built] [code generated]
+  modules by path ./.ve/ 15.1 KiB
+    modules by path ./.ve/*.js 10.6 KiB 2 modules
+    modules by path ./.ve/*.css 2.93 KiB 2 modules
+    ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 1616 ms
 assets by status 1.92 KiB [cached] 1 asset
-assets by path *.js 1.47 MiB
-  asset bundle.js 1.45 MiB [emitted] (name: main)
-  asset main.9de1186b283a6245292e.hot-update.js 24.2 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.9de1186b283a6245292e.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.47 MiB = bundle.js 1.45 MiB main.9de1186b283a6245292e.hot-update.js 24.2 KiB
-cached modules 1.29 MiB [cached] 46 modules
+assets by path *.js 1.45 MiB
+  asset bundle.js 1.44 MiB [emitted] (name: main)
+  asset main.9734b1200115894b0a4e.hot-update.js 10.4 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.9734b1200115894b0a4e.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.45 MiB = bundle.js 1.44 MiB main.9734b1200115894b0a4e.hot-update.js 10.4 KiB
+cached modules 1.29 MiB [cached] 47 modules
 runtime modules 27.5 KiB 14 modules
-javascript modules 17.7 KiB
-  ./src/components/MainContainer.js 13.6 KiB [built] [code generated]
-  ./src/utils/riskAnalysis.js 4.15 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 183 ms
+./src/components/MainContainer.js 6.51 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 117 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.46 MiB
+  asset bundle.js 1.44 MiB [emitted] (name: main)
+  asset main.ebde3bd7393ba3bcf3af.hot-update.js 12.4 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.ebde3bd7393ba3bcf3af.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.46 MiB = bundle.js 1.44 MiB main.ebde3bd7393ba3bcf3af.hot-update.js 12.4 KiB
+cached modules 1.29 MiB [cached] 47 modules
+runtime modules 27.5 KiB 14 modules
+./node_modules/css-loader/dist/cjs.js!./src/App.css 9.53 KiB [built] [code generated]
+webpack 5.99.9 compiled successfully in 72 ms
+assets by status 1.92 KiB [cached] 1 asset
+assets by path *.js 1.51 MiB
+  asset bundle.js 1.47 MiB [emitted] (name: main)
+  asset main.0a547627463ac810ecd5.hot-update.js 38.1 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.0a547627463ac810ecd5.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.51 MiB = bundle.js 1.47 MiB main.0a547627463ac810ecd5.hot-update.js 38.1 KiB
+cached modules 1.3 MiB [cached] 47 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 27.7 KiB
+  ./src/components/MainContainer.js 6.56 KiB [built] [code generated]
+  ./src/components/ResultsDashboard.js 20.9 KiB [built] [code generated]
+  ./src/components/RecommendationTabs.js 228 bytes [built] [code generated]
+webpack 5.99.9 compiled successfully in 159 ms

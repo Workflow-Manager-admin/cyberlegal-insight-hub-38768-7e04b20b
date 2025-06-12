@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import WelcomeStep from './WelcomeStep';
 import CyberQuizStep from './CyberQuizStep';
 import ContractUploadStep from './ContractUploadStep';
+import {
+  analyzeCyberQuiz,
+  analyzeContract,
+} from '../utils/riskAnalysis';
+
 // PUBLIC_INTERFACE
 function MainContainer() {
   /**
@@ -16,10 +21,12 @@ function MainContainer() {
   // Step index: 0=Welcome, 1=Quiz, 2=Contract, 3=Results, 4=ThankYou
   const [step, setStep] = useState(0);
 
-  // Placeholder local state for quiz and contract data
+  // State for quiz and contract data
   const [quizAnswers, setQuizAnswers] = useState({});
+  const [quizAnalysis, setQuizAnalysis] = useState(null);
+
   const [contractText, setContractText] = useState('');
-  const [analysisResult, setAnalysisResult] = useState(null);
+  const [contractAnalysis, setContractAnalysis] = useState(null);
 
   // Steps array for easy management
   const steps = [
@@ -30,31 +37,33 @@ function MainContainer() {
     'Thank You',
   ];
 
-  // Handlers for navigation and (future) data actions
+  // Navigation handlers
   const goToNext = () => setStep((s) => Math.min(s + 1, steps.length - 1));
   const goToPrev = () => setStep((s) => Math.max(s - 1, 0));
 
   function renderStep() {
     switch (step) {
       case 0:
-        // Use branded WelcomeStep component
         return <WelcomeStep onGetStarted={goToNext} />;
 
       case 1:
-        // CyberQuizStep: interactive quiz UI with scoring and progress
+        // CyberQuizStep: onComplete triggers analysis and proceed
         return (
           <CyberQuizStep
             onBack={goToPrev}
             initialAnswers={quizAnswers}
             onComplete={({ score, answers }) => {
-              setQuizAnswers(answers); // persist for results
+              setQuizAnswers(answers);
+              // Compute quiz risk using mock "AI" logic
+              const analysis = analyzeCyberQuiz(answers);
+              setQuizAnalysis(analysis);
               goToNext();
             }}
           />
         );
 
       case 2:
-        // Contract Upload/Analysis step - modular, with paste and upload
+        // Contract Upload/Analysis step - analyze on click
         return (
           <ContractUploadStep
             value={contractText}
@@ -62,34 +71,21 @@ function MainContainer() {
             uploading={false}
             onBack={goToPrev}
             onAnalyze={() => {
-              // Future: perform local AI analysis here, dummy result for now
-              setAnalysisResult({ risk: 'Medium', summary: 'Example: Arbitration clause present.' });
+              // Perform "AI" contract analysis using mock utility
+              const result = analyzeContract(contractText || "");
+              setContractAnalysis(result);
               goToNext();
             }}
           />
         );
 
       case 3:
-        // Results Dashboard placeholder (with quiz scoring)
-        // Determine Cyber Hygiene message based on quiz score
-        const totalQuizQs = 4;
-        const quizScore = Object.values(quizAnswers || {}).length > 0
-          ? Object.values(quizAnswers).filter((v,i) => {
-              // Score logic matches CyberQuizStep correct answers
-              const corrects = ['b','b','b','a'];
-              return v === corrects[i];
-            }).length
-          : 0;
-        const hygieneMsg = quizScore === totalQuizQs
-          ? "Excellent"
-          : quizScore >= 3
-          ? "Good"
-          : quizScore > 0
-          ? "Needs Improvement"
-          : "Not attempted";
+        // Unified Results Dashboard with mock "AI" logic
+        const cyber = quizAnalysis || analyzeCyberQuiz(quizAnswers);
+        const contract = contractAnalysis || analyzeContract(contractText);
 
         return (
-          <div className="container" style={{ paddingTop: 80, maxWidth: 680 }}>
+          <div className="container" style={{ paddingTop: 80, maxWidth: 700 }}>
             <h2 className="title" style={{ fontSize: '2rem', marginBottom: 10 }}>Your Risk Assessment Results</h2>
             <div className="description" style={{ marginBottom: 14 }}>
               Here’s your unified digital & contractual risk profile:
@@ -101,18 +97,54 @@ function MainContainer() {
               marginBottom: 18,
               border: '1px solid var(--border-color)'
             }}>
-              <div><b>Cyber Hygiene:</b> {hygieneMsg} <span style={{color:'#ffc66c',fontWeight:500,fontSize:'1rem'}}>({quizScore}/{totalQuizQs})</span></div>
-              <div><b>Contract Risk:</b> {analysisResult ? analysisResult.risk : 'N/A'}</div>
-              <div style={{ marginTop: 9 }}>
+              <div>
+                <b>Cyber Hygiene:</b>
+                {" "}
+                <span style={{ color: cyber.tier === "Low" ? "#9ee56c" : (cyber.tier === "Medium" ? "#ffcc80" : "#ff6d6d"), fontWeight: 500 }}>
+                  {cyber.tier}
+                </span>
+                <span style={{
+                  color: '#ffc66c', fontWeight: 500, fontSize: '1rem', marginLeft: 7
+                }}>
+                  ({cyber.score}/{cyber.total})
+                </span>
+              </div>
+              {cyber.message && (
+                <div style={{ color: "#25d4c6", marginTop: 3 }}>{cyber.message}</div>
+              )}
+              {cyber.redFlags && cyber.redFlags.length > 0 && (
+                <div style={{ margin: "8px 0 0 0", color: "#fc908d" }}>
+                  &#9888; Behavioral Red Flags: {cyber.redFlags.join(", ")}
+                </div>
+              )}
+              <div style={{ marginTop: 15 }}>
+                <b>Contract Risk:</b>
+                {" "}
+                <span style={{ color: contract.tier === "Low" ? "#9ee56c" : (contract.tier === "Medium" ? "#ffcc80" : contract.tier === "High" ? "#ff6d6d" : "#aaa"), fontWeight: 500 }}>
+                  {contract.tier}
+                </span>
+                <span style={{ color: "#ffc66c", fontWeight: 500, fontSize: "1rem", marginLeft: 7 }}>{contract.risk}</span>
+              </div>
+              {contract.redFlags && contract.redFlags.length > 0 && (
+                <div style={{ margin: "8px 0 0 0", color: "#fc908d" }}>
+                  &#9888; Contract Red Flags: {contract.redFlags.join(", ")}
+                </div>
+              )}
+              <div style={{ marginTop: 11 }}>
                 <b>Summary:</b>
                 <div style={{ color: '#8cf9cc', fontSize: '1rem' }}>
-                  {analysisResult ? analysisResult.summary : 'No contract analyzed.'}
+                  {contract.summary}
                 </div>
               </div>
             </div>
             <div>
               <b>Personalized Recommendations</b>
               <ul>
+                {/* Sample, can use actual analysis for finer logic */}
+                {cyber.tier === "High" && <li>Strengthen digital behavior: use strong, unique passwords and enable 2FA everywhere.</li>}
+                {cyber.redFlags && cyber.redFlags.includes("Phishing risk behavior") && <li>Be extra cautious of suspicious emails and links.</li>}
+                {contract.tier === "High" && <li>Re-negotiate or seek legal advice on indemnification, perpetual, or breach clauses.</li>}
+                {contract.redFlags && contract.redFlags.includes("Exclusive Clause") && <li>Assess exclusivity risks in your contract; consider negotiation.</li>}
                 <li>Change passwords regularly and avoid reuse.</li>
                 <li>Be cautious of email links and attachments.</li>
                 <li>Review arbitration, termination, and exclusivity clauses in contracts.</li>
@@ -124,7 +156,6 @@ function MainContainer() {
         );
 
       case 4:
-        // Thank You / Follow-up
         return (
           <div className="hero" style={{ textAlign: 'center', padding: '90px 0' }}>
             <h1 className="title" style={{ fontSize: '2.1rem', marginBottom: 20 }}>Thank You for Using CyberLegal Insight Hub!</h1>

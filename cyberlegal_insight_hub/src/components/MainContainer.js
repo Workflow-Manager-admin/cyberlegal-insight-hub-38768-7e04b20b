@@ -3,6 +3,7 @@ import WelcomeStep from './WelcomeStep';
 import CyberQuizStep from './CyberQuizStep';
 import ContractUploadStep from './ContractUploadStep';
 import ResultsDashboard from './ResultsDashboard';
+import ThankYouStep from './ThankYouStep';
 import {
   analyzeCyberQuiz,
   analyzeContract,
@@ -97,16 +98,9 @@ function MainContainer() {
         );
 
       case 4:
+        // Thank You, Resources/follow-up page with friendly branding and CTA
         return (
-          <div className="hero" style={{ textAlign: 'center', padding: '90px 0' }}>
-            <h1 className="title" style={{ fontSize: '2.1rem', marginBottom: 20 }}>Thank You for Using CyberLegal Insight Hub!</h1>
-            <div className="description" style={{ marginBottom: 35 }}>
-              Your personalized risk report and action plan have been prepared. Stay informed and safe!
-            </div>
-            <button className="btn" onClick={() => setStep(0)}>
-              Restart Assessment
-            </button>
-          </div>
+          <ThankYouStep onRestart={() => setStep(0)} />
         );
       default:
         return null;

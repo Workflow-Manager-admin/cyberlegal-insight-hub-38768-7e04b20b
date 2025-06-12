@@ -1,0 +1,4 @@
+{
+    "command": "npm install && npx tsc --noEmit && npm test -- --ci",
+    "working_directory": "/home/kavia/workspace/code-generation/cyberlegal-insight-hub-38768-7e04b20b/cyberlegal_insight_hub"
+}
